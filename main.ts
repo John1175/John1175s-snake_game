@@ -135,7 +135,7 @@ let n_apples = 0
 let apple_image: Image = null
 let ss = 0
 scene.setBackgroundColor(6)
-ss = 8
+ss = 12
 create_snake_head()
 create_snake_body()
 apple_image = img`
