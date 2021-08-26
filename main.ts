@@ -7,6 +7,12 @@ enum SpriteKindLegacy {
     snake_head_sprite
 }
 /**
+ * Keys - up, down, left, right
+ */
+/**
+ * Score when snake eats apple. Lengthen snake body
+ */
+/**
  * Game over if snakes turns back on its own body
  */
 function move_right () {
@@ -16,12 +22,6 @@ function move_right () {
 controller.right.onEvent(ControllerButtonEvent.Repeated, function () {
     move_right()
 })
-function dump () {
-    game.splash("last " + body_last_sprite.x + "  " + body_last_sprite.y)
-    game.splash("next " + body_next_to_last_sprite.x + "  " + body_next_to_last_sprite.y)
-    game.splash("dx =   " + dx)
-    game.splash("dy =   " + dy)
-}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     move_up()
 })
@@ -63,12 +63,6 @@ function move_left () {
     move_last_body_sprite_to_where_head_was()
     snake_head.setPosition(head_X_prior - ss, head_Y_prior)
 }
-/**
- * Keys - up, down, left, right
- */
-/**
- * Score when snake eats apple. Lengthen snake body
- */
 // Used for debugging above function
 sprites.onOverlap(SpriteKindLegacy.snake_head_sprite, SpriteKindLegacy.snake_body_sprite, function (sprite, otherSprite) {
     game.over(false)
@@ -100,7 +94,7 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     move_left()
 })
 function create_random_apples () {
-    for (let index = 0; index < randint(1, 2); index++) {
+    for (let index = 0; index < 1; index++) {
         if (n_apples < 3) {
             apple_sprite = sprites.create(apple_image, SpriteKindLegacy.Food)
             X = randint(8, 160 - 8)
@@ -121,13 +115,13 @@ let apple_sprite: Sprite = null
 let snake_head_image: Image = null
 let Y = 0
 let X = 0
-let snake_body_list: Sprite[] = []
-let snake_body_image: Image = null
-let body_sprite: Sprite = null
 let dy = 0
 let dx = 0
 let body_next_to_last_sprite: Sprite = null
 let body_last_sprite: Sprite = null
+let snake_body_list: Sprite[] = []
+let snake_body_image: Image = null
+let body_sprite: Sprite = null
 let head_Y_prior = 0
 let head_X_prior = 0
 let snake_head: Sprite = null
