@@ -7,12 +7,6 @@ enum SpriteKindLegacy {
     snake_head_sprite
 }
 /**
- * Keys - up, down, left, right
- */
-/**
- * Score when snake eats apple. Lengthen snake body
- */
-/**
  * Game over if snakes turns back on its own body
  */
 function move_right () {
@@ -28,6 +22,12 @@ function dump () {
     game.splash("dx =   " + dx)
     game.splash("dy =   " + dy)
 }
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    move_up()
+})
+controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
+    move_down()
+})
 function make_body_sprite (x: number, y: number) {
     body_sprite = sprites.create(snake_body_image, SpriteKindLegacy.snake_body_sprite)
     body_sprite.setPosition(x, y)
@@ -39,6 +39,9 @@ function move_last_body_sprite_to_where_head_was () {
     snake_body_list.insertAt(0, snake_body_list.pop())
     snake_body_list[0].setPosition(snake_head.x, snake_head.y)
 }
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    move_right()
+})
 function create_snake_body () {
     snake_body_image = image.create(ss, ss)
     snake_body_image.fill(15)
@@ -60,6 +63,12 @@ function move_left () {
     move_last_body_sprite_to_where_head_was()
     snake_head.setPosition(head_X_prior - ss, head_Y_prior)
 }
+/**
+ * Keys - up, down, left, right
+ */
+/**
+ * Score when snake eats apple. Lengthen snake body
+ */
 // Used for debugging above function
 sprites.onOverlap(SpriteKindLegacy.snake_head_sprite, SpriteKindLegacy.snake_body_sprite, function (sprite, otherSprite) {
     game.over(false)
@@ -87,6 +96,9 @@ function create_snake_head () {
     snake_head = sprites.create(snake_head_image, SpriteKindLegacy.snake_head_sprite)
     snake_head.setFlag(SpriteFlag.StayInScreen, true)
 }
+controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    move_left()
+})
 function create_random_apples () {
     for (let index = 0; index < randint(1, 2); index++) {
         if (n_apples < 3) {
@@ -122,8 +134,8 @@ let snake_head: Sprite = null
 let n_apples = 0
 let apple_image: Image = null
 let ss = 0
-scene.setBackgroundColor(9)
-ss = 12
+scene.setBackgroundColor(6)
+ss = 8
 create_snake_head()
 create_snake_body()
 apple_image = img`
