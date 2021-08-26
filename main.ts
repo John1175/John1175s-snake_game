@@ -6,15 +6,6 @@ enum SpriteKindLegacy {
     snake_body_sprite,
     snake_head_sprite
 }
-/**
- * Keys - up, down, left, right
- */
-/**
- * Score when snake eats apple. Lengthen snake body
- */
-/**
- * Game over if snakes turns back on its own body
- */
 function move_right () {
     move_last_body_sprite_to_where_head_was()
     snake_head.setPosition(head_X_prior + ss, head_Y_prior)
@@ -44,7 +35,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 function create_snake_body () {
     snake_body_image = image.create(ss, ss)
-    snake_body_image.fill(15)
+    snake_body_image.fill(8)
     snake_body_list = sprites.allOfKind(SpriteKindLegacy.snake_body_sprite)
     for (let index = 0; index <= 4; index++) {
         make_body_sprite(snake_head.x, snake_head.y + (index + 1) * ss)
@@ -86,7 +77,7 @@ controller.up.onEvent(ControllerButtonEvent.Repeated, function () {
 })
 function create_snake_head () {
     snake_head_image = image.create(ss, ss)
-    snake_head_image.fill(7)
+    snake_head_image.fill(9)
     snake_head = sprites.create(snake_head_image, SpriteKindLegacy.snake_head_sprite)
     snake_head.setFlag(SpriteFlag.StayInScreen, true)
 }
@@ -97,8 +88,8 @@ function create_random_apples () {
     for (let index = 0; index < 1; index++) {
         if (n_apples < 3) {
             apple_sprite = sprites.create(apple_image, SpriteKindLegacy.Food)
-            X = randint(8, 160 - 8)
-            Y = randint(8, 120 - 8)
+            X = 0 + 16 * randint(1, 9)
+            Y = -4 + 16 * randint(1, 7)
             apple_sprite.setPosition(X, Y)
             n_apples += 1
         }
@@ -128,8 +119,8 @@ let snake_head: Sprite = null
 let n_apples = 0
 let apple_image: Image = null
 let ss = 0
-scene.setBackgroundColor(6)
-ss = 12
+scene.setBackgroundColor(7)
+ss = 16
 create_snake_head()
 create_snake_body()
 apple_image = img`
